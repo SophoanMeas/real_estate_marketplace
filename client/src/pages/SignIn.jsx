@@ -1,14 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice.js';
-
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../redux/user/userSlice.js';
+import OAuth from '../components/OAuth.jsx';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const {loading, error} = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({
@@ -37,7 +41,7 @@ export default function SignIn() {
         dispatch(signInFailure(data.message));
         return;
       }
-      dispatch(signInSuccess(data))
+      dispatch(signInSuccess(data));
       navigate('/');
     } catch (error) {
       dispatch(signInFailure(error.message));
@@ -64,10 +68,11 @@ export default function SignIn() {
         ></input>
         <button
           disabled={loading}
-          className='bg-green-700 text-white p-3 rounded-lg uppercase hover:bg-blue-700 disabled:opacity-80'
+          className='sign-in-button bg-sky-700 text-white p-3 rounded-lg uppercase hover:opacity-80 disabled:opacity-80'
         >
           {loading ? 'Loading...' : 'Sign In'}
         </button>
+        <OAuth />
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Dont have an account?</p>
