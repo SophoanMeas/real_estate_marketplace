@@ -5,3 +5,15 @@
 body {
     background-color: rgb(241, 245, 241);
     }
+
+    .sign-in-button {
+    border: 1px solid #dddddd;
+    display: inline-block;
+    vertical-align: middle;
+    /* Use the Roboto font that is loaded in the <head> */
+    font-family: 'Roboto', sans-serif;   
+    }
+    .sign-in-button:hover {
+        box-shadow: 0px 2px 3px rgb(192, 185, 185);
+    }
+
