@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import OAuth from '../components/OAuth';
 
-
 export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
@@ -21,7 +20,7 @@ export default function SignUp() {
 
     try {
       setLoading(true);
-      
+
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -29,15 +28,15 @@ export default function SignUp() {
         },
         body: JSON.stringify(formData),
       });
-  
+
       const data = await res.json();
-  
+
       if (data.success == false) {
         setLoading(false);
         setError(data.message);
         return;
       }
-      setLoading(false);      
+      setLoading(false);
       setError(null);
       navigate('/sign-in');
     } catch (error) {
@@ -47,34 +46,48 @@ export default function SignUp() {
   };
 
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+    <div className='max-w-lg mx-auto mt-10 p-4 bg-indigo-300 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
+        <h1 className='text-xl text-center font-semibold my-5'>Sign Up</h1>
+        <label className='block text-sm font-medium'>Username</label>
+        <div className='relative mb-3'>
+          <input
+            onChange={handleChange}
+            type='username'
+            name='username'
+            id='username'
+            className='bg-gray-50 border pl-2 text-sm rounded-lg hover:border-sky-500 focus:border-sky-500 block w-full p-2.5'
+            placeholder='username'
+            required
+          ></input>
+        </div>
+        <label className='block text-sm font-medium'>Your email</label>
         <input
-          type='text'
-          placeholder='username'
-          className='border p-3 rounded-lg'
-          id='username'
           onChange={handleChange}
-        ></input>
-        <input
           type='email'
-          placeholder='email'
-          className='border p-3 rounded-lg'
+          name='email'
           id='email'
-          onChange={handleChange}
+          className='bg-gray-50 border pl-2 text-sm rounded-lg hover:border-sky-500 focus:border-sky-500 block w-full p-2.5'
+          placeholder='name@company.com'
+          required
         ></input>
+        <label className='block text-sm font-medium'>Your password</label>
         <input
-          type='password'
-          placeholder='password'
-          className='border p-3 rounded-lg'
-          id='password'
           onChange={handleChange}
+          type='password'
+          name='password'
+          id='password'
+          className='bg-gray-50 border pl-2 text-sm rounded-lg hover:border-sky-500 focus:border-sky-500 block w-full p-2.5'
+          placeholder='••••••••'
+          required
         ></input>
-        <button disabled={loading} className= 'primary-button bg-sky-700 text-white w-full rounded-lg uppercase hover:opacity-80 disabled:opacity-80'>
+        <button
+          disabled={loading}
+          className='primary-button w-full text-white rounded-lg py-2.5 mt-10 uppercase hover:opacity-80 disabled:opacity-80'
+        >
           {loading ? 'Loading...' : 'Sign Up'}
         </button>
-        <OAuth/>
+        <OAuth />
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Have an account?</p>

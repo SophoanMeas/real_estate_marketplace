@@ -49,7 +49,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className='max-w-lg mx-auto mt-10 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8'>
+    <div className='max-w-lg mx-auto mt-10 p-4 bg-indigo-300 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8'>
       <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
         <h1 className='text-xl text-center font-semibold my-5'>Sign In</h1>
         <label className='block text-sm font-medium'>Your email</label>
@@ -78,8 +78,8 @@ export default function SignIn() {
         <input
           onChange={handleChange}
           type='password'
-          name='password'
-          id='password'
+          name='ConfirmPassword'
+          id='ConfirmPassword'
           className='bg-gray-50 border pl-2 text-sm rounded-lg hover:border-sky-500 focus:border-sky-500 block w-full p-2.5'
           placeholder="••••••••"
           required
@@ -87,7 +87,7 @@ export default function SignIn() {
         <div className="flex items-start">
             <div className="flex items-start">
                 <div className="flex items-center h-5">
-                    <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required>
+                    <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" >
                 </input>
                 </div>
                 <label className="ml-2 text-sm font-medium text-gray-90">Remember me</label>
