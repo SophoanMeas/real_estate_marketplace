@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --primaryButton: #3930d8;
+    --defaultFontColor: white;
+}
+
+
 body {
     background-color: rgb(241, 245, 241);
     }
@@ -17,3 +23,7 @@ body {
         box-shadow: 0px 2px 3px rgb(192, 185, 185);
     }
 
+.primary-button {
+    background-color: var(--primaryButton);
+    color: var(--defaultFontColor);
+}
