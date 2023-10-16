@@ -5,25 +5,22 @@
 :root {
     --primaryButton: #3930d8;
     --defaultFontColor: white;
+    --googleButtonColor: rgb(185, 28, 28);
 }
 
+*:focus {
+    outline: none;
+  }
 
 body {
     background-color: rgb(241, 245, 241);
     }
 
-    .sign-in-button {
-    border: 1px solid #dddddd;
-    display: inline-block;
-    vertical-align: middle;
-    /* Use the Roboto font that is loaded in the <head> */
-    font-family: 'Roboto', sans-serif;   
-    }
-    .sign-in-button:hover {
-        box-shadow: 0px 2px 3px rgb(192, 185, 185);
-    }
-
 .primary-button {
     background-color: var(--primaryButton);
     color: var(--defaultFontColor);
+}
+
+.google-button {
+    background-color: var(--googleButtonColor);
 }
