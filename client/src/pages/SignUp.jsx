@@ -56,7 +56,7 @@ export default function SignUp() {
             type='username'
             name='username'
             id='username'
-            className='bg-gray-50 border pl-2 text-sm rounded-lg hover:border-sky-500 focus:border-sky-500 block w-full p-2.5'
+            className='bg-gray-50 border pl-2 text-sm rounded-full hover:border-sky-500 focus:border-sky-500 block w-full p-2.5'
             placeholder='username'
             required
           ></input>
@@ -67,7 +67,7 @@ export default function SignUp() {
           type='email'
           name='email'
           id='email'
-          className='bg-gray-50 border pl-2 text-sm rounded-lg hover:border-sky-500 focus:border-sky-500 block w-full p-2.5'
+          className='bg-gray-50 border pl-2 text-sm rounded-full hover:border-sky-500 focus:border-sky-500 block w-full p-2.5'
           placeholder='name@company.com'
           required
         ></input>
