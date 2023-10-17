@@ -16,6 +16,9 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
 
+  console.log(file)
+  console.log(fileUploadError)
+
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -29,22 +32,26 @@ export default function Profile() {
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on('state_changed', (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      setFilePerc(Math.round(progress));
-    },
-    (error) => {
-      setFileUploadError(true);
-    },
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((getDownloadURL) => setFormData({ ...formData, avatar: getDownloadURL })
-      );
-    }
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setFilePerc(Math.round(progress));
+      },
+      (error) => {
+        setFileUploadError(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((getDownloadURL) =>
+          setFormData({ ...formData, avatar: getDownloadURL })
+        );
+      }
     );
   };
 
   return (
-    <div className='max-w-2xl mx-4 sm:max-w-lg md:max-w-lg lg:max-w-lg xl:max-w-lg sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900'>
+    <div className='max-w-2xl p-3 mx-4 sm:max-w-lg md:max-w-lg lg:max-w-lg xl:max-w-lg sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900'>
       <div className='h-32 m-5 overflow-hidden'>
         <h1 className='text-3xl pt-2 font-semibold text-center my-3'>
           Profile
@@ -60,16 +67,26 @@ export default function Profile() {
         ></input>
         <img
           onClick={() => fileRef.current.click()}
-          src={currentUser.avatar}
+          src={formData.avatar || currentUser.avatar}
           className='object-cover h-32 cursor-pointer self-center'
           alt='avatar'
         />
       </div>
       <div className='text-center mt-2'>
-        <h2 className='font-semibold'>{currentUser.username}</h2>
+        <h2 className='font-semibold'></h2>
         <p className='text-gray-500'></p>
       </div>
-
+   <p className='mt-3 text-sm text-center'>
+          {fileUploadError ? (
+            <span className='text-red-700'>Error image upload (image must be less than 2 mb)</span>
+          ) : filePerc > 0 && filePerc < 100 ? (
+            <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
+          ) : filePerc === 100 ? (
+            <span className='text-green-500'>Image successfully uploaded!</span>
+          ) : (
+            ''
+          )}
+        </p>
       <div className='max-w-lg mx-auto p-4 mt-10 flex flex-col gap-3 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8'>
         <input
           type='username'
