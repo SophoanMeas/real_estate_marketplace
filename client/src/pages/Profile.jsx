@@ -14,6 +14,9 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
+  signOutUserFailure,
 } from '../redux/user/userSlice';
 
 export default function Profile() {
@@ -26,7 +29,6 @@ export default function Profile() {
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const dispatch = useDispatch();
 
-  console.log(currentUser.avatar)
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -102,6 +104,20 @@ export default function Profile() {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart())
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message))
+        return;
+      }
+      dispatch(signOutUserSuccess(data))
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message))
+    }
+  }
   return (
     <div className='max-w-2xl p-3 mx-4 sm:max-w-lg md:max-w-lg lg:max-w-lg xl:max-w-lg sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900'>
       <div className=' bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8'>
@@ -193,7 +209,7 @@ export default function Profile() {
           >
             Delete Account
           </span>
-          <span className='text-red-700 cursor-pointer'>Sign out</span>
+          <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>Sign out</span>
         </div>
         <p className='text-red-700 mt-5'>{error ? error : ''}</p>
         <p className='text-green-600 mt-5'>

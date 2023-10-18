@@ -2,9 +2,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  signInStart,
-  signInSuccess,
-  signInFailure,
+  signInUserStart,
+  signInUserSuccess,
+  signInUserFailure,
 } from '../redux/user/userSlice.js';
 import OAuth from '../components/OAuth.jsx';
 
@@ -25,7 +25,7 @@ export default function SignIn() {
     e.preventDefault();
 
     try {
-      dispatch(signInStart());
+      dispatch(signInUserStart());
 
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
@@ -38,13 +38,13 @@ export default function SignIn() {
       const data = await res.json();
 
       if (data.success == false) {
-        dispatch(signInFailure(data.message));
+        dispatch(signInUserFailure(data.message));
         return;
       }
-      dispatch(signInSuccess(data));
-      navigate('/');
+      dispatch(signInUserSuccess(data));
+      navigate('/')
     } catch (error) {
-      dispatch(signInFailure(error.message));
+      dispatch(signInUserFailure(error.message));
     }
   };
 
