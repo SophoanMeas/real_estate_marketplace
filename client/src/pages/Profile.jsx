@@ -114,7 +114,6 @@ export default function Profile() {
         return;
       }
       dispatch(signOutUserSuccess(data))
-      navigate('/');
     } catch (error) {
       dispatch(signOutUserFailure(error.message))
     }
