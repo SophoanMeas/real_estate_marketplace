@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
-import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser';
+import listingRouter from './routes/listing.route.js';
 
 dotenv.config();
 
@@ -16,7 +17,6 @@ mongoose
     console.log(err);
   });
 
-
 const app = express();
 const port = 3000;
 
@@ -28,8 +28,9 @@ app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
 });
 
-app.use("/api/user", userRouter);
+app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/listing', listingRouter);
 
 // middleware to handle error
 // return the error status error code or server internal error 500
@@ -41,5 +42,5 @@ app.use((err, req, res, next) => {
     success: false,
     statusCode,
     message,
-  })
-})
+  });
+});
