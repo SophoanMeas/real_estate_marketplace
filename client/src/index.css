@@ -19,6 +19,7 @@ body {
 .primary-button {
     background-color: var(--primaryButton);
     color: var(--defaultFontColor);
+    border-radius: 9999px;
 }
 
 .google-button {

@@ -18,6 +18,7 @@ import {
   signOutUserSuccess,
   signOutUserFailure,
 } from '../redux/user/userSlice';
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -106,18 +107,18 @@ export default function Profile() {
 
   const handleSignOut = async () => {
     try {
-      dispatch(signOutUserStart())
+      dispatch(signOutUserStart());
       const res = await fetch('/api/auth/signout');
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signOutUserFailure(data.message))
+        dispatch(signOutUserFailure(data.message));
         return;
       }
-      dispatch(signOutUserSuccess(data))
+      dispatch(signOutUserSuccess(data));
     } catch (error) {
-      dispatch(signOutUserFailure(error.message))
+      dispatch(signOutUserFailure(error.message));
     }
-  }
+  };
   return (
     <div className='max-w-2xl p-3 mx-4 sm:max-w-lg md:max-w-lg lg:max-w-lg xl:max-w-lg sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900'>
       <div className=' bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8'>
@@ -197,9 +198,19 @@ export default function Profile() {
             >
               {loading ? 'Loading...' : 'Update'}
             </button>
-            <button className='rounded-full bg-green-700 hover:shadow-lg font-semibold text-white px-6 py-2 uppercase hover:opacity-80 disabled:opacity-80'>
-              Creating Listing
-            </button>
+            <Link className='
+              rounded-full
+              bg-green-700
+              hover:shadow-lg
+              font-semibold
+              text-white
+              px-6
+              py-2
+              uppercase
+              hover:opacity-80
+              disabled:opacity-80 text-center'
+              to='/create-listing'
+            >Create Listing</Link>
           </div>
         </form>
         <div className='flex justify-between mt-2'>
@@ -209,7 +220,9 @@ export default function Profile() {
           >
             Delete Account
           </span>
-          <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>Sign out</span>
+          <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
+            Sign out
+          </span>
         </div>
         <p className='text-red-700 mt-5'>{error ? error : ''}</p>
         <p className='text-green-600 mt-5'>
