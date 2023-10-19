@@ -83,7 +83,7 @@ export default function SignUp() {
         ></input>
         <button
           disabled={loading}
-          className='primary-button w-full text-white rounded-lg py-2.5 mt-10 uppercase hover:opacity-80 disabled:opacity-80'
+          className='primary-button py-2.5 mt-10 uppercase hover:opacity-80 disabled:opacity-80'
         >
           {loading ? 'Loading...' : 'Sign Up'}
         </button>
