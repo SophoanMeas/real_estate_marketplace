@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const listingSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
     },
@@ -22,11 +22,11 @@ const listingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    bathRooms: {
+    bathrooms: {
       type: Number,
       required: true,
     },
-    bedRooms: {
+    bedrooms: {
       type: Number,
       required: true,
     },
