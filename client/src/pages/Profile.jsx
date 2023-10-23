@@ -136,6 +136,25 @@ export default function Profile() {
       setShowListingError(true);
     }
   };
+
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`api/listing/delete/${listingId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setUserListings((pervData) =>
+        pervData.filter((listing) => listing._id !== listingId)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className='max-w-2xl p-3 mx-4 sm:max-w-lg md:max-w-lg lg:max-w-lg xl:max-w-lg sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900'>
       <div className=' bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8'>
@@ -233,7 +252,7 @@ export default function Profile() {
             </Link>
           </div>
         </form>
-        <div className='flex justify-between mt-2'>
+        <div className='flex justify-between mt-2 p-3'>
           <span
             onClick={handleDeleteUser}
             className='text-red-700 cursor-pointer'
@@ -248,13 +267,18 @@ export default function Profile() {
         <p className='text-green-600 mt-5'>
           {updateSuccess ? 'user is updated successfully!' : ''}
         </p>
-        <button onClick={handleShowListings} className='text-green-600 w-full'>
+        <button
+          onClick={handleShowListings}
+          className='text-green-600 w-full pb-3'
+        >
           Show Listings
         </button>
         <p>{showListingError ? 'Error showing listings' : ''}</p>
         {userListings && userListings.length > 0 && (
           <div className='flex flex-col gap-4'>
-            <h1 className='text-center mt-7 text-2xl font-semibold'>Your Listing</h1>
+            <h1 className='text-center mt-7 text-2xl font-semibold'>
+              Your Listing
+            </h1>
             {userListings.map((listing) => (
               <div
                 key={listing._id}
@@ -274,7 +298,12 @@ export default function Profile() {
                   <p>{listing.title}</p>
                 </Link>
                 <div className='flex flex-col items-center'>
-                  <button className='text-red-700 uppercase'>Delete</button>
+                  <button
+                    onClick={() => handleListingDelete(listing._id)}
+                    className='text-red-700 uppercase'
+                  >
+                    Delete
+                  </button>
                   <button className='text-green-700 uppercase'>Edit</button>
                 </div>
               </div>
