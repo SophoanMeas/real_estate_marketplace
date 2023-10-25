@@ -7,7 +7,12 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { EffectFade, EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
+import {
+  EffectFade,
+  EffectCoverflow,
+  Navigation,
+  Pagination,
+} from 'swiper/modules';
 
 import {
   FaBath,
@@ -17,6 +22,8 @@ import {
   FaParking,
   FaShare,
 } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import Contact from '../components/Contact';
 
 export default function Listing() {
   //   SwiperCore.use([Navigation]);
@@ -25,6 +32,8 @@ export default function Listing() {
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const params = useParams();
+  const [contact, setContact] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -32,7 +41,7 @@ export default function Listing() {
         setLoading(true);
         const res = await fetch(`/api/listing/getListing/${params.listingId}`);
         const data = await res.json();
-        console.log(data);
+
         if (data.success === false) {
           setError(true);
           setLoading(false);
@@ -57,35 +66,34 @@ export default function Listing() {
       </div>
       {listing && !loading && !error && (
         <>
-        <div className='w-[600px'>
-        <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={'auto'}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={true}
-        modules={[EffectCoverflow, Pagination]}
-        className="mySwiper"
-      >
-            {listing.imageUrls.map((url) => (
-              <SwiperSlide key={url}>
-                <div
-                  className='md:h-[350px] lg:h-[550px] h-[500px]'
-                  style={{
-                    background: `url(${url}) center no-repeat`,
-                    backgroundSize: 'cover',
-                  }}
-                ></div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <div className='w-[600px mySwiper'>
+            <Swiper
+              effect={'coverflow'}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              coverflowEffect={{
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+              }}
+              pagination={true}
+              modules={[EffectCoverflow, Pagination]}
+              >
+              {listing.imageUrls.map((url) => (
+                <SwiperSlide key={url}>
+                  <div
+                    className='md:h-[350px] lg:h-[550px] h-[500px]'
+                    style={{
+                      background: `url(${url}) center no-repeat`,
+                      backgroundSize: 'cover',
+                    }}
+                  ></div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
           <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10'>
             <FaShare
@@ -121,12 +129,12 @@ export default function Listing() {
                 {listing.type === 'rent' ? 'For Rent' : 'For Sale'}{' '}
               </p>
               {listing.offer && (
-                <p className='relative overflow-hidden text-md bg-green-900 shadow-2xl w-full max-w-[200px] text-white text-center p-1 rounded-md'>
-                  <div className='ribbon bg-red-500 text-sm whitespace-no-wrap px-4'>
+                <div className='relative overflow-hidden text-md bg-green-900 shadow-2xl w-full max-w-[200px] text-white text-center p-1 rounded-md'>
+                  <p className='ribbon bg-red-500 text-sm whitespace-no-wrap px-4'>
                     sale
-                  </div>
+                  </p>
                   -${listing.regularPrice - listing.discountPrice}
-                </p>
+                </div>
               )}
             </div>
             <p className='text-slate-800 mt-3'>
@@ -159,6 +167,15 @@ export default function Listing() {
                 {listing.parking ? 'Parking spot' : 'No Parking'}
               </li>
             </ul>
+            {currentUser && listing.userRef !== currentUser._id && !contact && (
+             <button
+             onClick={() => setContact(true)}
+             className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'
+           >
+             Contact landlord
+           </button>
+         )}
+             {contact && <Contact listing={listing} />}
           </div>
         </>
       )}
