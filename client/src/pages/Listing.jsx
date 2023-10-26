@@ -133,7 +133,7 @@ export default function Listing() {
                   <p className='ribbon bg-red-500 text-sm whitespace-no-wrap px-4'>
                     sale
                   </p>
-                  -${listing.regularPrice - listing.discountPrice}
+                  -${(listing.regularPrice - listing.discountPrice).toLocaleString()}
                 </div>
               )}
             </div>

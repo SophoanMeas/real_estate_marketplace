@@ -186,8 +186,9 @@ export default function UpdateListing() {
         Update a Listing
       </h1>
       <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-4'>
-        <div className='flex flex-col flex-1 gap-4'>
-          <input
+        <div className='flex flex-col flex-2 gap-4'>
+            <label className='font-semibold'>Title:</label>
+            <input
             type='text'
             id='title'
             placeholder='Title'
@@ -197,7 +198,9 @@ export default function UpdateListing() {
             onChange={handleChange}
             value={formData.title}
           ></input>
+          <label className='font-semibold'>Description:</label>
           <textarea
+          style={{ height: '350px' }}
             id='description'
             placeholder='Description'
             className='border p-3 rounded-lg'
@@ -205,6 +208,7 @@ export default function UpdateListing() {
             onChange={handleChange}
             value={formData.description}
           ></textarea>
+           <label className='font-semibold'>Address:</label>
           <input
             type='text'
             id='address'
@@ -216,6 +220,7 @@ export default function UpdateListing() {
           ></input>
           <div className='flex gap-6 flex-wrap'>
             <div className='flex gap-2'>
+            <label className='font-semibold'>Type:</label>
               <input
                 type='checkbox'
                 id='sale'
