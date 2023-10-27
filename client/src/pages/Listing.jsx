@@ -8,9 +8,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import {
-  EffectFade,
   EffectCoverflow,
-  Navigation,
   Pagination,
 } from 'swiper/modules';
 
