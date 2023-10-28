@@ -118,11 +118,11 @@ export default function Listing() {
                 : listing.regularPrice.toLocaleString('eng-US')}
               {listing.type === 'rent' && ' /month'}
             </p>
-            <p className='flex items-center mt-6 gap-2 text-slate-600 text-mx'>
+            <p className='flex items-center mt-3 gap-2 text-slate-600 text-mx'>
               <FaMapMarkerAlt className='text-green-700' /> {listing.address}
             </p>
 
-            <div className='select-none flex gap-4'>
+            <div className='select-none flex gap-4 mt-1'>
               <p className='bg-red-900 text-md shadow-2xl w-full max-w-[200px] text-white text-center p-1 rounded-md'>
                 {listing.type === 'rent' ? 'For Rent' : 'For Sale'}{' '}
               </p>
@@ -131,7 +131,7 @@ export default function Listing() {
                   <p className='ribbon bg-red-500 text-sm whitespace-no-wrap px-4'>
                     sale
                   </p>
-                  -${(listing.regularPrice - listing.discountPrice).toLocaleString()}
+                  ${(+listing.regularPrice - +listing.discountPrice).toLocaleString('eng-us')} OFF
                 </div>
               )}
             </div>

@@ -200,7 +200,7 @@ export default function UpdateListing() {
           ></input>
           <label className='font-semibold'>Description:</label>
           <textarea
-          style={{ height: '350px' }}
+          style={{ height: '250px' }}
             id='description'
             placeholder='Description'
             className='border p-3 rounded-lg'
