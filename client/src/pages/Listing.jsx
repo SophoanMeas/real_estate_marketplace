@@ -56,6 +56,7 @@ export default function Listing() {
     fetchListing();
   }, [params.listingId]);
 
+console.log(currentUser)
   return (
     <main>
       <div className='text-center my-7 text-2xl'>
@@ -131,7 +132,7 @@ export default function Listing() {
                   <p className='ribbon bg-red-500 text-sm whitespace-no-wrap px-4'>
                     sale
                   </p>
-                  ${(+listing.regularPrice - +listing.discountPrice).toLocaleString('eng-us')} OFF
+                  ${(+listing.regularPrice - +listing.discountPrice).toLocaleString('eng-us')}
                 </div>
               )}
             </div>
