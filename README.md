@@ -49,8 +49,7 @@ This is a full stack implementation of a real-estate marketplace application tha
 
 ### website
 
-* <a href="https://mern-esate-mwb9.onrender.com/" target="_blank"><h4>Real Estate Marketplace*</a>
-
+* [Real Estate Marketplace](https://mern-esate-mwb9.onrender.com/)
 
 # Technologies
 Node Package Manager
